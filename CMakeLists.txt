@@ -152,6 +152,16 @@ MACRO(LIST2STRING alist astring)
   ENDFOREACH(elem)
 ENDMACRO(LIST2STRING)
 
+# Adds the sundials include paths to a target. This enables consumers to
+# automatically pick up the include path simply by adding the target via
+# 'target_link_libraries' with CMake's transative include paths
+MACRO(SET_SUNDIALS_PUBLIC_INCLUDE target)
+  TARGET_INCLUDE_DIRECTORIES(${target} PUBLIC
+    $<BUILD_INTERFACE:${sundials_SOURCE_DIR}/include/>
+    $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/>)
+ENDMACRO(SET_SUNDIALS_PUBLIC_INCLUDE)
+  
+
 # -------------------------------------------------------------
 # Which modules to build?
 # -------------------------------------------------------------

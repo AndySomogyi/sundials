@@ -129,6 +129,11 @@ IF(BUILD_STATIC_LIBS)
   ADD_LIBRARY(sundials_cvode_static STATIC 
     ${cvode_SOURCES}  ${cvode_BL_SOURCES} ${shared_SOURCES})
 
+  # Set include path for transative includes, i.e. so clients automatically
+  # pick up the include dir if they link to this target
+  SET_SUNDIALS_PUBLIC_INCLUDE(sundials_cvode_static)
+
+
   # Set the library name and make sure it is not deleted
   SET_TARGET_PROPERTIES(sundials_cvode_static
     PROPERTIES OUTPUT_NAME sundials_cvode CLEAN_DIRECT_OUTPUT 1)
@@ -152,6 +157,11 @@ IF(BUILD_SHARED_LIBS)
   # Set VERSION and SOVERSION for shared libraries
   SET_TARGET_PROPERTIES(sundials_cvode_shared
     PROPERTIES VERSION ${cvodelib_VERSION} SOVERSION ${cvodelib_SOVERSION})
+
+  # Set include path for transative includes, i.e. so clients automatically
+  # pick up the include dir if they link to this target
+  SET_SUNDIALS_PUBLIC_INCLUDE(sundials_cvode_shared)
+
 
   # Install the CVODE library
   INSTALL(TARGETS sundials_cvode_shared DESTINATION lib)
